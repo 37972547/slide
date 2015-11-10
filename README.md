@@ -1,6 +1,6 @@
 # slide 轮播
 ## 实例化：
-```javasciprt
+```javascript
     $(function () {
         slide({
             'target': $('.slide'),
