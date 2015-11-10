@@ -22,14 +22,16 @@
             },
             'loop': true,
             'onSlideStart':function(slide){},//回调切换前
-            'onSlideEnd': function(slide){}  //回调切换后
+            'onSlideEnd': function(slide){},  //回调切换后
+            'index': 1
         }, options || {});
         if(!this.options.target){
             console.log('缺少target参数！');
             return;
         }
+
         this.timer = null;
-        this.index = 1;
+        this.index = this.options.index;
         this.length = this.options.target.find('li').size();
         this.init();
     };
@@ -40,32 +42,42 @@
             var ul = this.options.target.find('ul'),
                 li = this.options.target.find('li');
 
-            this.options.target.css({
-                'width': this.options.width,
-                'height': this.options.height
-            });
-
             this.options.target.parent().css({
                 'width': this.options.width,
                 'height': this.options.height,
                 'position': 'relative'
             });
+            if(/\d+\%/.test(this.options.width)){//百分比转px
+                this.options.width = this.options.target.parent().width();
+            }
+            if(/\d+\%/.test(this.options.height)){
+                this.options.height = this.options.target.parent().height();
+            }
+            this.options.target.css({
+                'width': this.options.width,
+                'height': this.options.height
+            });
+            this.options.target.find('li').css({
+                'width': this.options.width,
+                'height': this.options.height
+            });
+
 
             li.eq(this.length - 1).clone(false, true).insertBefore(li.eq(0));
             li.eq(0).clone(false, true).appendTo(ul);
 
             if (this.options.effect === 'level') {
-                this.options.target.find('ul').width((this.length + 2) * this.options.width).css('left', -this.options.width);
+                this.options.target.find('ul').width((this.length + 2) * this.options.width).css('left',this.index * -this.options.width);
                 this.options.target.find('li').css('float', 'left');
             } else if (this.options.effect === 'vertical') {
-                this.options.target.find('ul').css('top', -this.options.height);
+                this.options.target.find('ul').css('top', this.index *-this.options.height);
             } else if (this.options.effect === 'fade') {
                 this.options.target.find('li').css({
                     position: 'absolute',
                     left: '0',
                     top: '0'
                 }).hide();
-                this.options.target.find('li').eq(1).show();
+                this.options.target.find('li').eq(this.index).show();
             }
             this.icons();
             this.play();
@@ -156,7 +168,7 @@
                     that.control();
                 });
             }
-            console.log(this.index)
+
             this.options.target.parent().find('dd').removeClass('current');
             this.options.target.parent().find('dd').eq(((this.index - 1) % 3)).addClass('current');
         },
@@ -213,7 +225,7 @@
                 });
             }
 
-            this.options.target.parent().find('dd:first').addClass('current');
+            this.options.target.parent().find('dd').eq(this.index-1).addClass('current');
 
             if (this.options.control.iconsIsClick) {
                 this.options.target.parent().find('dd').each(function (i) {
