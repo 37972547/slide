@@ -150,7 +150,7 @@
                         if (that.index >= that.length + 1) {
                             $(this).css('top', -that.options.height);
                             that.index = 1;
-                        } else if (that.index <= 1) {
+                        } else if (that.index <= 0) {
                             $(this).css('top', -that.options.height * that.length);
                             that.index = that.length;
                         }
