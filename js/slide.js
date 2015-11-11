@@ -87,13 +87,13 @@
             this.control();
             this.options.onSlideStart(this);
 
-            $(this.options.control.prev).bind('mouseenter', function () {
+            this.options.target.parent().find(this.options.control.prev).bind('mouseenter', function () {
                 clearTimeout(that.timer);
             }).bind('mouseleave', function () {
                 that.play();
             });
 
-            $(this.options.control.next).bind('mouseenter', function () {
+            this.options.target.parent().find(this.options.control.next).bind('mouseenter', function () {
                 clearTimeout(that.timer);
             }).bind('mouseleave', function () {
                 that.play();
