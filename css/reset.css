@@ -59,3 +59,4 @@ img.error {padding:2px;height:auto;width:auto;border:1px #333 outset;}
 .slide-wrap4 dl dd{float: left;color:#414141;width:100px;height: 36px;cursor:pointer;border:2px solid #0000ff;border-radius: 0;}
 .slide-wrap4 dl dd img{width:100%;}
 .slide-wrap4 dl dd.current{border:2px solid #ff0000;}
+.slide-wrap4 .page{font-size: 14px;color: red;position: absolute;right: 10px;top:10px;}

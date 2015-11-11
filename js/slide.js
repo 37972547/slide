@@ -21,8 +21,7 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){},//回调切换前
-            'onSlideEnd': function(slide){},  //回调切换后
+            'callback':function(slide){},//回调
             'index': 1
         }, options || {});
         if(!this.options.target){
@@ -85,7 +84,7 @@
             this.icons();
             this.play();
             this.control();
-            this.options.onSlideStart(this);
+            this.options.callback(this);
 
             this.options.target.parent().find(this.options.control.prev).bind('mouseenter', function () {
                 clearTimeout(that.timer);
@@ -118,7 +117,6 @@
             }, this.options.delay);
         },
         move: function () {
-            this.options.onSlideStart(this);
             clearTimeout(this.timer);
             var that = this;
             if (this.options.effect === 'level') {
@@ -136,7 +134,7 @@
                             $(this).css('left', -that.options.width * that.length);
                             that.index = that.length;
                         }
-                        that.options.onSlideEnd(that);
+                        that.options.callback(that);
                         that.control();
                     }
                 });
@@ -156,7 +154,7 @@
                             $(this).css('top', -that.options.height * that.length);
                             that.index = that.length;
                         }
-                        that.options.onSlideEnd(that);
+                        that.options.callback(that);
                         that.control();
                     }
                 });
@@ -171,7 +169,7 @@
                     } else if (that.index <= 0) {
                         that.index = that.length;
                     }
-                    that.options.onSlideEnd(that);
+                    that.options.callback(that);
                     that.control();
                 });
             }

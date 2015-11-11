@@ -61,6 +61,7 @@
         <dd><img src="images/ban_02.jpg" /></dd>
         <dd><img src="images/ban_03.jpg" /></dd>
     </dl>
+    <div class="page"><span></span>/<span></span></div>
 </div>
 <script>
     $(function () {
@@ -79,10 +80,7 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){
-
-            },
-            'onSlideEnd': function(slide){
+            'callback':function(slide){
 
             },
             'index': 1
@@ -105,10 +103,7 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){
-
-            },
-            'onSlideEnd': function(slide){
+            'callback':function(slide){
 
             },
             'index': 1
@@ -131,10 +126,7 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){
-
-            },
-            'onSlideEnd': function(slide){
+            'callback':function(slide){
 
             },
             'index': 1
@@ -157,11 +149,9 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){
-
-            },
-            'onSlideEnd': function(slide){
-
+            'callback':function(slide){
+                $('.page span').eq(0).html(slide.index);
+                $('.page span').eq(1).html(slide.length);
             },
             'index': 1
         });
