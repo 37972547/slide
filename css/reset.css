@@ -46,11 +46,16 @@ img.error {padding:2px;height:auto;width:auto;border:1px #333 outset;}
 *.clearfix {zoom: 1;} /* IE6/7 */
 
 
-.slide{width:500px;height: 375px;overflow: hidden;position: relative;}
-.imagegallery{color:#999999;position: absolute;}
 .slide-wrap{position: relative;width:1000px;}
+.slide-wrap .slide{width:500px;height: 375px;overflow: hidden;position: relative;}
 .slide-wrap .slide-prev{position: absolute;z-index:2;background: url(../images/prev.jpg) no-repeat;width: 40px;height: 74px;top:50%;margin-top:-37px;cursor: pointer;}
 .slide-wrap .slide-next{position: absolute;z-index:2;right: 0;background: url(../images/next.jpg) no-repeat;width: 40px;height: 74px;top:50%;margin-top:-37px;cursor: pointer;}
 .slide-wrap dl{position: absolute;bottom: 20px;left:50%;margin-left: -36px;}
 .slide-wrap dl dd{float: left;color:#414141;width:20px;height: 20px;line-height: 20px;text-align: center;background: #ccc;margin-right: 5px;cursor:pointer;border-radius: 10px}
 .slide-wrap dl dd.current{background: #ff8900;color: #fff;}
+
+.slide-wrap4{}
+.slide-wrap4 dl{position: absolute;bottom: 20px;left:50%;margin-left: -157px;}
+.slide-wrap4 dl dd{float: left;color:#414141;width:100px;height: 36px;cursor:pointer;border:2px solid #0000ff;border-radius: 0;}
+.slide-wrap4 dl dd img{width:100%;}
+.slide-wrap4 dl dd.current{border:2px solid #ff0000;}

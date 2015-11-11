@@ -57,6 +57,9 @@
                 'width': this.options.width,
                 'height': this.options.height
             });
+            this.options.target.find('ul').css({
+                'position': 'absolute'
+            });
             this.options.target.find('li').css({
                 'width': this.options.width,
                 'height': this.options.height
@@ -174,9 +177,9 @@
         },
         control: function () {
             var that = this;
-            $(that.options.control.prev).unbind('click');
-            $(that.options.control.next).unbind('click');
-            $(this.options.control.prev).bind('click', function () {
+            this.options.target.parent().find(this.options.control.prev).unbind('click');
+            this.options.target.parent().find(this.options.control.next).unbind('click');
+            this.options.target.parent().find(this.options.control.prev).bind('click', function () {
                 if(!that.options.loop){
                     if(that.index > 1){
                         that.index--;
@@ -187,12 +190,12 @@
                     that.index--;
                 }
                 that.move();
-                $(that.options.control.prev).unbind('click');
-                $(that.options.control.next).unbind('click');
+                that.options.target.parent().find(that.options.control.prev).unbind('click');
+                that.options.target.parent().find(that.options.control.next).unbind('click');
 
             });
 
-            $(this.options.control.next).bind('click', function () {
+            this.options.target.parent().find(this.options.control.next).bind('click', function () {
                 if(!that.options.loop){
                     if(that.index < that.length){
                         that.index++;
@@ -203,8 +206,8 @@
                     that.index++;
                 }
                 that.move();
-                $(that.options.control.prev).unbind('click');
-                $(that.options.control.next).unbind('click');
+                that.options.target.parent().find(that.options.control.prev).unbind('click');
+                that.options.target.parent().find(that.options.control.next).unbind('click');
 
             });
 

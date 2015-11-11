@@ -11,7 +11,7 @@
 
 <body>
 <div class="slide-wrap">
-    <div class="slide">
+    <div id="slide1" class="slide">
         <ul  class="imagegallery clearfix">
             <li><img src="images/ban_01.jpg" /></li>
             <li><img src="images/ban_02.jpg" /></li>
@@ -20,18 +20,80 @@
     </div>
     <div class="slide-prev"></div>
     <div class="slide-next"></div>
+</div>
+<hr/>
+<div class="slide-wrap">
+    <div id="slide2" class="slide">
+        <ul  class="clearfix">
+            <li><img src="images/ban_01.jpg" /></li>
+            <li><img src="images/ban_02.jpg" /></li>
+            <li><img src="images/ban_03.jpg" /></li>
+        </ul>
+    </div>
+    <div class="slide-prev"></div>
+    <div class="slide-next"></div>
+</div>
+<hr/>
+<div class="slide-wrap">
+    <div id="slide3" class="slide">
+        <ul  class="clearfix">
+            <li><img src="images/ban_01.jpg" /></li>
+            <li><img src="images/ban_02.jpg" /></li>
+            <li><img src="images/ban_03.jpg" /></li>
+        </ul>
+    </div>
+    <div class="slide-prev"></div>
+    <div class="slide-next"></div>
+</div>
+<hr/>
+<div class="slide-wrap slide-wrap4">
+    <div id="slide4" class="slide">
+        <ul  class="clearfix">
+            <li><img src="images/ban_01.jpg" /></li>
+            <li><img src="images/ban_02.jpg" /></li>
+            <li><img src="images/ban_03.jpg" /></li>
+        </ul>
+    </div>
+    <div class="slide-prev"></div>
+    <div class="slide-next"></div>
     <dl class="slide-icons">
-        <dd>1</dd>
-        <dd>2</dd>
-        <dd>3</dd>
+        <dd><img src="images/ban_01.jpg" /></dd>
+        <dd><img src="images/ban_02.jpg" /></dd>
+        <dd><img src="images/ban_03.jpg" /></dd>
     </dl>
 </div>
 <script>
     $(function () {
         slide({
-            'target': $('.slide'),
-            'width': '100%',
-            'height': '100%',
+            'target': $('#slide1'),
+            'width': '1000',
+            'height': '360',
+            'autoPlay': false,
+            'delay': 3000,
+            'duration': 500,
+            'effect': 'level',
+            'easing': 'easeInOutQuart',
+            'control': {
+                'prev': '.slide-prev',
+                'next': '.slide-next',
+                'iconsIsClick': false
+            },
+            'loop': true,
+            'onSlideStart':function(slide){
+
+            },
+            'onSlideEnd': function(slide){
+
+            },
+            'index': 1
+        });
+    });
+
+    $(function () {
+        slide({
+            'target': $('#slide2'),
+            'width': '1000',
+            'height': '360',
             'autoPlay': false,
             'delay': 3000,
             'duration': 500,
@@ -49,7 +111,59 @@
             'onSlideEnd': function(slide){
 
             },
-            'index': 2
+            'index': 1
+        });
+    });
+
+    $(function () {
+        slide({
+            'target': $('#slide3'),
+            'width': '1000',
+            'height': '360',
+            'autoPlay': true,
+            'delay': 3000,
+            'duration': 1000,
+            'effect': 'fade',
+            'easing': 'easeInOutQuart',
+            'control': {
+                'prev': '.slide-prev',
+                'next': '.slide-next',
+                'iconsIsClick': false
+            },
+            'loop': true,
+            'onSlideStart':function(slide){
+
+            },
+            'onSlideEnd': function(slide){
+
+            },
+            'index': 1
+        });
+    });
+
+    $(function () {
+        slide({
+            'target': $('#slide4'),
+            'width': '1000',
+            'height': '360',
+            'autoPlay': true,
+            'delay': 1500,
+            'duration': 500,
+            'effect': 'level',
+            'easing': 'easeInOutQuart',
+            'control': {
+                'prev': '.slide-prev',
+                'next': '.slide-next',
+                'iconsIsClick': false
+            },
+            'loop': true,
+            'onSlideStart':function(slide){
+
+            },
+            'onSlideEnd': function(slide){
+
+            },
+            'index': 1
         });
     });
 </script>
