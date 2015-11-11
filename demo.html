@@ -63,6 +63,24 @@
     </dl>
     <div class="page"><span></span>/<span></span></div>
 </div>
+<hr/>
+<div class="slide-wrap slide-wrap4">
+    <div id="slide5" class="slide">
+        <ul  class="clearfix">
+            <li><img src="images/ban_01.jpg" /></li>
+            <li><img src="images/ban_02.jpg" /></li>
+            <li><img src="images/ban_03.jpg" /></li>
+        </ul>
+    </div>
+    <div class="slide-prev"></div>
+    <div class="slide-next"></div>
+    <dl class="slide-icons">
+        <dd><img src="images/ban_01.jpg" /></dd>
+        <dd><img src="images/ban_02.jpg" /></dd>
+        <dd><img src="images/ban_03.jpg" /></dd>
+    </dl>
+    <div class="page"><span></span>/<span></span></div>
+</div>
 <script>
     $(function () {
         slide({
@@ -102,7 +120,7 @@
                 'next': '.slide-next',
                 'iconsIsClick': false
             },
-            'loop': true,
+            'loop': false,
             'callback':function(slide){
 
             },
@@ -150,8 +168,32 @@
             },
             'loop': true,
             'callback':function(slide){
-                $('.page span').eq(0).html(slide.index);
-                $('.page span').eq(1).html(slide.length);
+                slide.options.target.parent().find('.page span').eq(0).html(slide.index);
+                slide.options.target.parent().find('.page span').eq(1).html(slide.length);
+            },
+            'index': 2
+        });
+    });
+
+    $(function () {
+        slide({
+            'target': $('#slide5'),
+            'width': '1000',
+            'height': '360',
+            'autoPlay': false,
+            'delay': 1500,
+            'duration': 500,
+            'effect': 'show',
+            'easing': 'easeInOutQuart',
+            'control': {
+                'prev': '.slide-prev',
+                'next': '.slide-next',
+                'iconsIsClick': false
+            },
+            'loop': true,
+            'callback':function(slide){
+                slide.options.target.parent().find('.page span').eq(0).html(slide.index);
+                slide.options.target.parent().find('.page span').eq(1).html(slide.length);
             },
             'index': 1
         });

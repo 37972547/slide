@@ -172,6 +172,20 @@
                     that.options.callback(that);
                     that.control();
                 });
+            } else if (this.options.effect === 'show') {
+                this.options.target.find('li').hide();
+                this.options.target.find('li').eq(that.index).show();
+                setTimeout(function(){
+                    if (that.index >= that.length + 1) {
+                        that.index = 1;
+                    } else if (that.index <= 0) {
+                        that.index = that.length;
+                    }
+
+                    that.options.callback(that);
+                    that.control();
+                },100);
+
             }
 
             this.options.target.parent().find('dd').removeClass('current');
