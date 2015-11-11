@@ -17,10 +17,7 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'onSlideStart':function(slide){
-
-            },
-            'onSlideEnd': function(slide){
+            'callback':function(slide){
 
             },
             'index': 2
