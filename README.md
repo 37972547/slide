@@ -35,7 +35,7 @@
  autoPlay| 自动播放             | 布尔                                                     | true    | false
  delay   | 间隔时间             | 数值                                                     | 3000    | 4000
  duration| 持续时间             | 数值                                                     | 1000    | 2000
- effect  | 滑动方向             | 字符串['level' 水平切换,'vertical'垂直切换,'fade' 淡入淡出,'show' 无效果] | 'level' | 'fade'
+ effect  | 滑动方向             | 字符串['level' 水平切换,'vertical'垂直切换,'fade' 淡入淡出] | 'level' | 'fade'
  easing  | 动画jquery.easing    | 字符串                                                   | 'swing' | 'easeInOutQuart'
  index   | 设置或获取slide的索引 | 数值                                                     | 1       | 2
  loop    | 是否循环播放          | 布尔                                                     | true    | false

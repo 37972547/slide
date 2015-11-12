@@ -21,16 +21,19 @@
                 'iconsIsClick': false
             },
             'loop': true,
-            'callback':function(slide){},//回调
+            'callback': function (slide) {
+            },//回调
             'index': 1
         }, options || {});
-        if(!this.options.target){
+        if (!this.options.target) {
             console.log('缺少target参数！');
             return;
         }
 
         this.timer = null;
         this.index = this.options.index;
+        this.prev = true;
+        this.next = true;
         this.length = this.options.target.find('li').size();
         this.init();
     };
@@ -46,10 +49,10 @@
                 'height': this.options.height,
                 'position': 'relative'
             });
-            if(/\d+\%/.test(this.options.width)){//百分比转px
+            if (/\d+\%/.test(this.options.width)) {//百分比转px
                 this.options.width = this.options.target.parent().width();
             }
-            if(/\d+\%/.test(this.options.height)){
+            if (/\d+\%/.test(this.options.height)) {
                 this.options.height = this.options.target.parent().height();
             }
             this.options.target.css({
@@ -69,10 +72,10 @@
             li.eq(0).clone(false, true).appendTo(ul);
 
             if (this.options.effect === 'level') {
-                this.options.target.find('ul').width((this.length + 2) * this.options.width).css('left',this.index * -this.options.width);
+                this.options.target.find('ul').width((this.length + 2) * this.options.width).css('left', this.index * -this.options.width);
                 this.options.target.find('li').css('float', 'left');
             } else if (this.options.effect === 'vertical') {
-                this.options.target.find('ul').css('top', this.index *-this.options.height);
+                this.options.target.find('ul').css('top', this.index * -this.options.height);
             } else if (this.options.effect === 'fade') {
                 this.options.target.find('li').css({
                     position: 'absolute',
@@ -119,9 +122,8 @@
         move: function () {
             clearTimeout(this.timer);
             var that = this;
-            if (this.options.effect === 'level') {
-                this.options.target.find('ul').stop();
-                this.options.target.find('ul').animate({
+            if (this.options.effect === 'level') {  //水平滚动
+                this.options.target.find('ul').stop().animate({
                     left: -this.index * this.options.width
                 }, {
                     easing: this.options.easing,
@@ -135,13 +137,13 @@
                             that.index = that.length;
                         }
                         that.options.callback(that);
-                        that.control();
+                        that.prev = true;
+                        that.next = true;
                     }
                 });
 
-            } else if (this.options.effect === 'vertical') {
-                this.options.target.find('ul').stop();
-                this.options.target.find('ul').animate({
+            } else if (this.options.effect === 'vertical') { //垂直滚动
+                this.options.target.find('ul').stop().animate({
                     top: -this.index * this.options.height
                 }, {
                     easing: this.options.easing,
@@ -155,36 +157,25 @@
                             that.index = that.length;
                         }
                         that.options.callback(that);
-                        that.control();
+                        that.prev = true;
+                        that.next = true;
                     }
                 });
 
-            } else if (this.options.effect === 'fade') {
-                this.options.target.find('li').not(this.options.target.find('li').eq(this.index)).stop(false,true);
-                this.options.target.find('li').eq(this.index).stop(false,true);
-                this.options.target.find('li').not(this.options.target.find('li').eq(this.index)).fadeOut(this.options.duration);
-                this.options.target.find('li').eq(this.index).fadeIn(this.options.duration, function () {
-                    if (that.index >= that.length + 1) {
-                        that.index = 1;
-                    } else if (that.index <= 0) {
-                        that.index = that.length;
-                    }
-                    that.options.callback(that);
-                    that.control();
-                });
-            } else if (this.options.effect === 'show') {
-                this.options.target.find('li').hide();
-                this.options.target.find('li').eq(that.index).show();
-                setTimeout(function(){
-                    if (that.index >= that.length + 1) {
-                        that.index = 1;
-                    } else if (that.index <= 0) {
-                        that.index = that.length;
-                    }
-
-                    that.options.callback(that);
-                    that.control();
-                },100);
+            } else if (this.options.effect === 'fade') { //淡入淡出
+                this.options.target.find('li').not(this.options.target.find('li').eq(this.index)).stop(false, true).fadeOut(this.options.duration);
+                this.options.target.find('li').eq(this.index).stop(false, true).fadeIn(
+                    this.options.duration,
+                    function () {
+                        if (that.index >= that.length + 1) {
+                            that.index = 1;
+                        } else if (that.index <= 0) {
+                            that.index = that.length;
+                        }
+                        that.options.callback(that);
+                        that.prev = true;
+                        that.next = true;
+                    });
 
             }
 
@@ -193,58 +184,39 @@
         },
         control: function () {
             var that = this;
-            this.options.target.parent().find(this.options.control.prev).unbind('click');
-            this.options.target.parent().find(this.options.control.next).unbind('click');
             this.options.target.parent().find(this.options.control.prev).bind('click', function () {
-                if(!that.options.loop){
-                    if(that.index > 1){
+                if (!that.prev) {
+                    return;
+                }
+                that.prev = false;
+                if (!that.options.loop) {
+                    if (that.index > 1) {
                         that.index--;
-                    }else{
+                    } else {
                         return;
                     }
-                }else{
+                } else {
                     that.index--;
                 }
                 that.move();
-                that.options.target.parent().find(that.options.control.prev).unbind('click');
-                that.options.target.parent().find(that.options.control.next).unbind('click');
-
             });
 
             this.options.target.parent().find(this.options.control.next).bind('click', function () {
-                if(!that.options.loop){
-                    if(that.index < that.length){
+                if (!that.next) {
+                    return;
+                }
+                that.next = false;
+                if (!that.options.loop) {
+                    if (that.index < that.length) {
                         that.index++;
-                    }else{
+                    } else {
                         return;
                     }
-                }else{
+                } else {
                     that.index++;
                 }
                 that.move();
-                that.options.target.parent().find(that.options.control.prev).unbind('click');
-                that.options.target.parent().find(that.options.control.next).unbind('click');
-
             });
-
-        },
-        icons: function () {
-            var that = this;
-            if(this.options.target.parent().find('.slide-icons').length <= 0){
-                var icons = $('<dl class="slide-icons"></dl>');
-                var li = this.options.target.find('li');
-                var dd = '';
-                for (var i = 1, len = li.size() - 1; i < len; i++) {
-                    dd += '<dd>' + i + '</dd>';
-                }
-                icons.append(dd);
-                this.options.target.parent().append(icons);
-                this.options.target.parent().find('dl').css({
-                    'margin-left': -this.options.target.parent().find('dl').width() / 2
-                });
-            }
-
-            this.options.target.parent().find('dd').eq(this.index-1).addClass('current');
 
             if (this.options.control.iconsIsClick) {
                 this.options.target.parent().find('dd').each(function (i) {
@@ -266,6 +238,23 @@
                     });
                 });
             }
+
+        },
+        icons: function () {
+            if (this.options.target.parent().find('.slide-icons').length <= 0) {
+                var icons = $('<dl class="slide-icons"></dl>');
+                var li = this.options.target.find('li');
+                var dd = '';
+                for (var i = 1, len = li.size() - 1; i < len; i++) {
+                    dd += '<dd>' + i + '</dd>';
+                }
+                icons.append(dd);
+                this.options.target.parent().append(icons);
+                this.options.target.parent().find('dl').css({
+                    'margin-left': -this.options.target.parent().find('dl').width() / 2
+                });
+            }
+            this.options.target.parent().find('dd').eq(this.index - 1).addClass('current');
         }
     };
 
