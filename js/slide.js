@@ -220,11 +220,12 @@
 
             if (this.options.control.iconsIsClick) {
                 this.options.target.parent().find('dd').each(function (i) {
-                    $(this).unbind('click');
                     $(this).bind('click', function () {
-                        $(this).unbind('click');
+                        clearTimeout(that.timer);
                         that.index = i + 1;
                         that.move();
+                    }).bind('mouseleave', function () {
+                        that.play();
                     });
                 });
             } else {
